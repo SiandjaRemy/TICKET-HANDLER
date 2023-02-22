@@ -299,8 +299,11 @@ def sign_in(request):
         usercode = Profile.objects.all().filter(user=user, profile_approuved=True)
 
         if user is not None:
-            # Also check if usercode eist in qr_info and is not just jagons
-            if usercode:
+            # Also check if usercode exist in qr_info and is not just jagons
+            if user.is_staff:
+                auth.login(request, user)
+                return redirect("dashboard")
+            elif usercode:
                 auth.login(request, user)
                 return redirect("/")
             else:
@@ -318,9 +321,13 @@ def logout(request):
 
 #===================USER AUTH VIEWS END=========================================
 
-
+#ADMIN VIEWS
 #========================USER CODE VIEWS===============================================
+@login_required(login_url="sign_in")
+def dashboard(request):
+    return render(request, "admin_page/dashboard.html")
 
+@login_required(login_url="sign_in")
 def admin_index(request):
     codes = QrInfo.objects.all()
     code_count = len(codes) #codes.count()
@@ -332,6 +339,7 @@ def admin_index(request):
     
     return render(request, "admin_page/index.html", context)
 
+@login_required(login_url="sign_in")
 def save_qr(request):
     user_code = "".join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=20))
 
@@ -346,11 +354,13 @@ def save_qr(request):
         return render(request, "admin_page/index.html")
     return redirect("admin_index")
 
+@login_required(login_url="sign_in")
 def hundred_qr(request):
     for i in range(5):
         save_qr(request)
     return redirect("admin_index")
 
+@login_required(login_url="sign_in")
 def show(request):
     qrs = QrInfo.objects.all()
     qrs_count = qrs.count() #len(qrs)
@@ -367,6 +377,7 @@ def show(request):
 #========================ADMIN PAGES=======================================
 
 #Would be better if admin generated usercode directly from user account and the code is then saved in the qr_info model 
+@login_required(login_url="sign_in")
 def check_code(request):
     if request.method == "POST":
         user_code = request.POST["usercode"]

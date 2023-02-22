@@ -21,6 +21,11 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+class Company(models.Model):
+    company = models.ForeignKey(User, on_delete=models.CASCADE)
+    contact = models.IntegerField()
+
+
 
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name="Category Title")

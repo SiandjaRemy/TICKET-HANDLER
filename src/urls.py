@@ -28,6 +28,8 @@ urlpatterns = [
     path("logout", views.logout, name="logout"),
 
     #======================USER CODE URLS===========================
+    path("dashboard", views.dashboard, name="dashboard"),
+
     path("admin-index", views.admin_index, name="admin_index"),
     path("save-qr", views.save_qr, name="save_qr"),
     path("show", views.show, name="show"),

@@ -11,10 +11,15 @@
 </head>
 <body>
     <div id="header">
+        {% if request.user.is_staff %}
+        <a href="/" class="logo"><b>{{ request.user.username|title }}</b> - Admin Dashboard</a>
+        {% else %}
         <a href="/" class="logo"><b>{{ request.user.username|title }}</b> Event ticket Handler</a>
+        {% endif %}
     </div>
     <div id="subheader">
         <div class="cart">
+        {% if request.user.is_staff == false %}
         <a href="{% url 'cart_detail' %}">
             {% if in_cart == 1 %}
             ({{ in_cart }}) Ticket in your cart
@@ -33,7 +38,8 @@
             No order
             {% endif %}
         </a>    
-        | <a href="{% url 'logout' %}">Logout</a>
+        |{% endif %}
+         <a href="{% url 'logout' %}">Logout</a>
         </div>
     </div>
     <div id="content">
