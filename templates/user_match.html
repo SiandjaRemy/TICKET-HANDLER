@@ -1,0 +1,109 @@
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Tickets Handler {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/b.css' %}">
+</head>
+<body>
+    <div id="header">
+        <a href="#" class="logo">
+            <!-- Using slice tio cut in elements before the name and cut to remove elements after the name -->
+            <b>{{ name|title|slice:"20:"|cut:">]>" }}'s</b> Event ticket Handler
+        </a>
+    </div>
+    <div id="subheader">
+        <div class="cart">
+        
+        | <a href="#">({{ order_len }}) Ordered tickets</a>    
+        | <a href="check-code"> back</a>
+        </div>
+    </div>
+
+    <div id="content">
+        <h1>Ordered Events</h1>
+        {% for message in messages %}
+        <h3 class="logo">{{ message }}</h3>
+        {% endfor %}
+    <table class="cart">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Event</th>
+                <th>Number of tickets</th>
+                <th>Match day/time</th>
+                <th>status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>
+                    <a href="#">
+                        <img src="{{ order.event.event_image.url }}" alt="">
+                    </a>
+                </td>
+                <td>{{ order.event.title }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>The match starts in: {{ order.event.event_date_time|timeuntil }}</td>
+                <td>
+                    <button><a href="{% url 'ticket_checked' order.id %}">check</a></button>
+                </td>
+                {% empty %}
+            
+                <td>No order</td>
+            </tr>
+                
+    
+            {% endfor %}
+    
+        </tbody>
+    </table>
+
+    <h1>Guests Events</h1>
+    {% for message in messages %}
+    <h3 class="logo">{{ message }}</h3>
+    {% endfor %}
+    <table class="cart">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Event</th>
+                <th>Guest name</th>
+                <th>Number of tickets</th>
+                <th>Match day/time</th>
+                <th>status</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% if guest_orders %}
+            {% for guest_order in guest_orders %}
+            <tr>
+                <td>
+                    <a href="#">
+                        <img src="{{ guest_order.event.event_image.url }}" alt="">
+                    </a>
+                </td>
+                <td>{{ guest_order.event.title }}</td>
+                <td>{{ guest_order.guest_name }}</td>
+                <td>{{ guest_order.quantity }}</td>
+                <td>The match starts in: {{ guest_order.event.event_date_time|timeuntil }}</td>
+                <td>
+                    <button><a href="{% url 'guest_ticket_checked' guest_order.id %}">check</a></button>
+                </td>
+                {% empty %}
+            
+                <td>You dont have any guest</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+
+    </div>
+
+</body>
+

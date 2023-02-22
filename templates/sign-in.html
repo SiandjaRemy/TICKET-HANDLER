@@ -1,0 +1,19 @@
+<h2>Sign-in form</h2>
+{% for message in messages %}
+<h3 class="logo">{{ message }}</h3>
+{% endfor %}
+<form role="form text-left" action="" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="Username" required name="username" aria-label="Name" aria-describedby="email-addon">
+    </div>
+    <div class="mb-3">
+      <input type="password" class="form-control" placeholder="Password" required name="password" aria-label="Password" aria-describedby="password-addon">
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign in</button>
+    </div>
+    <p class="text-sm mt-3 mb-0">Dont have an account yet? 
+      <a href="sign-up" class="text-dark font-weight-bolder">Sign up</a>
+    </p>
+  </form>

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Event Cart
+{% endblock %}
+
+{% block content %}
+
+<h1>Ordered Events</h1>
+<table class="cart">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Event</th>
+            <th>Number of tickets</th>
+            <th>Match day/time</th>
+            <th>Time left</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>
+                <a href="#">
+                    <img src="{{ order.event.event_image.url }}" alt="">
+                </a>
+            </td>
+            <td>{{ order.event.title }}</td>
+            <td>{{ order.quantity }}</td>
+            <td >Event airs on: 
+                <div id="event-box" class="event-box">{{ order.event.event_date_time|date:"M d, Y H:m:s" }}</div>
+            </td>
+            <td >Time left
+                <div id="countdown-box" class="countdown-box"></div>
+            </td>
+            {% empty %}
+        
+            <td>No order</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h1>Guests Events</h1>
+<table class="cart">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Event</th>
+            <th>Guest name</th>
+            <th>Number of tickets</th>
+            <th>Match day/time</th>
+            <th>Time left</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% if guest_orders %}
+        {% for guest_order in guest_orders %}
+        <tr>
+            <td>
+                <a href="#">
+                    <img src="{{ guest_order.event.event_image.url }}" alt="">
+                </a>
+            </td>
+            <td>{{ guest_order.event.title }}</td>
+            <td>{{ guest_order.guest_name }}</td>
+            <td>{{ guest_order.quantity }}</td>
+            <td >Event airs on: 
+                <div id="event-box">{{ guest_order.event.event_date_time|date:"M d, Y H:m:s" }}</div>
+            </td>
+            <td >Time left
+                <div id="countdown-box"></div>
+            </td>
+            {% empty %}
+        
+            <td>You dont have any guest</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+
+<script src="{% static 'js/main.js' %}" defer></script>
+{% endblock %}

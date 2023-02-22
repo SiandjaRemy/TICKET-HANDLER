@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{% if category %} {{ category.title }} {% else %} Events {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    
+<div id="sidebar">
+    <h3>Categories</h3>
+    {% for message in messages %}
+    <h3 class="logo">{{ message }}</h3>
+    {% endfor %}
+    <ul>
+        <li {% if not category %}class="selected" {% else %} class="no"{% endif %}>
+            <a href="/">All</a>
+        </li>
+        {% for cat in categories %}
+        <li {% if category.slug == cat.slug %}class="selected"{% endif %}>
+            <a href="{% url 'category_products' cat.slug %}">{{ cat.title|title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+<div>
+    <div id="main" class="product-list">
+        <h1>{% if category %} {{ category.title }} {% else %} Events {% endif %}</h1>
+        {% for event in events %}
+        <div class="item">
+            <a {% if event.available_tickets <= 0 %} href="no-more-tickets"{% else %} href="{% url 'event_detail' event.slug %}"{% endif %}>
+                <img src="{{ event.event_image.url }}">
+            </a>
+            <a {% if event.available_tickets <= 0 %} href="no-more-tickets"{% else %} href="{% url 'event_detail' event.slug %}"{% endif %}>{{ event.title }}</a>
+            <br>
+            {{ event.ticket_price }}CFA <br>
+            <p>{% if event.available_tickets == 0 %}
+                No more tickets available
+                {% elif event.available_tickets == 1 %}
+                Only 1 ticket remaining
+                {% elif event.available_tickets < 10 %}
+                Only {{ event.available_tickets }} tickets remaining
+                {% else %}
+                {{ event.available_tickets }} tickets remaining
+                {% endif %}
+            </p>
+        </div>
+
+        {% empty %}
+        <div class="item">
+            <h1>No event for this category</h1>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

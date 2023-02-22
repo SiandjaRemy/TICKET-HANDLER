@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Tickets Handler {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/b.css' %}">
+</head>
+<body>
+    <div id="header">
+        <a href="/" class="logo"><b>{{ request.user.username|title }}</b> Event ticket Handler</a>
+    </div>
+    <div id="subheader">
+        <div class="cart">
+        <a href="{% url 'cart_detail' %}">
+            {% if in_cart == 1 %}
+            ({{ in_cart }}) Ticket in your cart
+            {% elif in_cart > 1 %}
+            ({{ in_cart }}) Tickets in your cart
+            {% else %}
+            No ticket bought yet 
+            {% endif %}
+        </a>
+        | <a href="{% url 'orders' %}">
+            {% if order_len == 1 %}
+            "{{ order_len }}" order
+            {% elif order_len > 1 %}
+            "{{ order_len }}" orders
+            {% else %}
+            No order
+            {% endif %}
+        </a>    
+        | <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+    <div id="content">
+    {% block content %}
+    {% endblock %}
+    </div>
+</body>
+</html>

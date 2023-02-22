@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Event Cart
+{% endblock %}
+
+{% block content %}
+
+<h1>Event Cart</h1>
+{% for message in messages %}
+<h3 class="logo">{{ message }}</h3>
+{% endfor %}
+<table class="cart">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Event</th>
+            <th>Number of tickets</th>
+            <th>Remove</th>
+            <th>unit Price</th>
+            <th>price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cart_event in cart_events %}
+        <tr>
+            <td>
+                <a href="{% url 'event_detail' cart_event.event.slug %}">
+                    <img src="{{ cart_event.event.event_image.url }}" alt="">
+                </a>
+            </td>
+            <td>{{ cart_event.event.title }}</td>
+            <td>
+                <a href="">+</a>
+                {{ cart_event.quantity }}
+                <a href="">-</a>
+            </td>
+            <td>
+                <button><a href="{% url 'remove_from_cart' cart_event.id %}">Remove</a></button>
+            </td>
+            <td class="num">{{ cart_event.event.ticket_price }}CFA</td>
+            <td class="num">{{ cart_event.total_price }}CFA</td>
+           
+            {% empty %}
+        
+            <td>No event in Cart</td>
+        </tr>
+
+        {% endfor %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">{{ amount }}CFA</td>
+        </tr>
+    </tbody>
+</table>
+<p class="text-right">
+    <a href="/" class="buttonlight">Add more events</a>
+    <a href="checkout" class="button">Checkout</a>
+    <a href="show-guest" class="button">Checkout as guest</a>
+</p>
+{% endblock %}

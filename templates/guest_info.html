@@ -1,0 +1,18 @@
+<h2>Guest info form</h2>
+<form role="form text-left" action="{%url 'guest_checkout' %}" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input type="text" class="form-control" required placeholder="Guest name" name="name" aria-label="Name" aria-describedby="name-addon">
+    </div>
+    <div class="mb-3">
+      <input type="number" class="form-control" required placeholder="age" name="age" aria-label="age" aria-describedby="age-addon">
+    </div>
+    <div class="mb-3">
+      <input type="text" class="form-control" required placeholder="id number" name="id_number" aria-label="in_number" aria-describedby="in_number-addon">
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Reserve tickets</button>
+    </div>
+      <a href="cart-detail" class="text-dark font-weight-bolder">back to cart</a>
+    </p>
+  </form>

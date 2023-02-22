@@ -1,0 +1,80 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR code generator</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family: sans-serif;
+            background-color: burlywood;
+        }
+        main{
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        input{
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button{
+            width: 100%;
+            max-width: 200px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #eee;
+            
+        }
+
+        button:hover{
+            background-color: #ddd;
+        }
+
+        .qr-img{
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .qr-img img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>
+            {{ qrs_count }} - Random codes & their QR codes
+        </h1>
+        <a href="admin-index">Back to Generator</a>
+
+        <div class="qr-img">
+            {% for qr in qrs reversed %}
+                <img src="/media/{{ qr.qr_image }}" alt="qr code">
+                
+                <h4>Code: {{ qr.code }}</h4>
+                <h4>Created  - {{ qr.created_on|timesince }} ago</h4>
+                <hr>
+                <br>
+            {% empty %}
+            <h2>No code generated yet</h2>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+
+
+</html>

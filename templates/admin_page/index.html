@@ -1,0 +1,10 @@
+<h1>Generate Code here</h1>
+<form action="hundred-qr" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <input type="submit" value="Generate">
+</form>
+
+<a href="show">See the qr codes here</a>
+
+<h3>{{ code_count }} Qr codes generated today</h3>

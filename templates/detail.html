@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ event.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="product-detail">
+        <img src="{{ event.event_image.url }}" alt="">
+    </div>
+    <h1>{{ event.title|title }}</h1>
+    <h2><a href="#">
+        {{ event.category|title }}
+    </a></h2>
+    <p class="price">{{ event.ticket_price }}</p>
+    <p>{{ event.available_tickets }} tickets remaining</p>
+
+    <form action="{% url 'add_to_cart' %}">
+        <input type="hidden" name="ev_id" value="{{ event.id }}" id="event_id">
+        <button type="submit">Add to cart</button>
+    </form>
+    {{ event.description|linebreaks }}
+{% endblock %}

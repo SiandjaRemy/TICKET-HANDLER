@@ -1,0 +1,12 @@
+<h1>Admin login</h1>
+{% for message in messages %}
+<h3 class="logo">{{ message }}</h3>
+{% endfor %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="">User Code</label>
+    <br>
+    <input type="text" name="usercode" required placeholder="Scan QR-code here">
+
+    <input type="submit" value="See user orders">
+</form>
