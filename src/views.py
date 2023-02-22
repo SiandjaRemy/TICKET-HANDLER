@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 import decimal, random, string
 from django.contrib import messages
 from .models import Profile, Event, Category, Order, Guest, GuestOrder, QrInfo, Cart, Stadium
-from .forms import CodeForm
+from .forms import CodeForm, AddEventForm
 import datetime
 from django.utils import timezone
 
@@ -372,6 +372,21 @@ def show(request):
 
     return render(request, "admin_page/show.html", context)
 
+def add_event(request):
+    return render(request, "admin_page/add_event.html")
+
+def event_form(request):
+    if request.method == "POST":
+        form = AddEventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("add_event")
+    else:
+        form = AddEventForm()
+    
+    return render(request, "admin_page/add_event.html",  {"form": form})
+    
+
 #======================USER CODE VIEWS END===============================================
 
 #========================ADMIN PAGES=======================================
@@ -399,12 +414,12 @@ def check_code(request):
                 "guest_orders":guest_orders,
             }
 
-            return render(request, "user_match.html", context)
+            return render(request, "admin_page/user_match.html", context)
         else:
             messages.info(request, "No user with this code")
             return redirect("check_code")
     else:
-        return render(request, "admin_login.html")
+        return render(request, "admin_page/admin_login.html")
 
 #=========ACTIONS===========
 def ticket_checked(request, order_id):

@@ -1,3 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block content %}
+
+<div id="sidebar">
+    <h3>Options</h3>
+    {% for message in messages %}
+    <h3 class="logo">{{ message }}</h3>
+    {% endfor %}
+    <ul>
+        <li style="padding: 10px;" class="selected">
+            <a style="padding: 10px;" href="admin-index"><h3>Generate Qr Codes</h3></a>
+            <a style="padding: 10px;" href="show"><h3>See Qr Codes</h3></a>
+            <a style="padding: 10px;" href="check-code"><h3>Check a users orders</h3></a>
+            <a style="padding: 10px;" href="add-event"><h3>Add Event</h3></a>
+        </li>
+
+    </ul>
+</div>
+{% endblock %}

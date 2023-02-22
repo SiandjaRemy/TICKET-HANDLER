@@ -12,7 +12,7 @@
 <body>
     <div id="header">
         {% if request.user.is_staff %}
-        <a href="/" class="logo"><b>{{ request.user.username|title }}</b> - Admin Dashboard</a>
+        <a href="dashboard" class="logo"><b>{{ request.user.username|title }}</b> - Admin Dashboard</a>
         {% else %}
         <a href="/" class="logo"><b>{{ request.user.username|title }}</b> Event ticket Handler</a>
         {% endif %}

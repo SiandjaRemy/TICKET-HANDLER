@@ -1,5 +1,5 @@
 from django import forms
-from .models import QrInfo
+from .models import QrInfo, Event
 
 
 class CodeForm(forms.ModelForm):
@@ -7,3 +7,7 @@ class CodeForm(forms.ModelForm):
         model = QrInfo
         exclude = ["code", "qr_image"]
 
+class AddEventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ["title", "description", "event_image", "ticket_price", "available_tickets", "category", "stadium", "event_date_time"]

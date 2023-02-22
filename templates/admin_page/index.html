@@ -1,10 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
 <h1>Generate Code here</h1>
 <form action="hundred-qr" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p}}
-    <input type="submit" value="Generate">
+    <input type="submit" value="Generate" style="cursor: pointer;">
 </form>
+<div style="padding-top: 30px;">
+    <a href="show">See the qr codes here</a>
+</div>
 
-<a href="show">See the qr codes here</a>
 
 <h3>{{ code_count }} Qr codes generated today</h3>
+
+{% endblock %}

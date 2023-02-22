@@ -21,12 +21,6 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-class Company(models.Model):
-    company = models.ForeignKey(User, on_delete=models.CASCADE)
-    contact = models.IntegerField()
-
-
-
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name="Category Title")
     slug = models.SlugField(max_length=55, verbose_name="Category Slug")
@@ -57,7 +51,7 @@ class Event(models.Model):
     ticket_price = models.DecimalField(max_digits=8, decimal_places=2)
     available_tickets = models.IntegerField(default=1)
     category = models.ForeignKey(Category, verbose_name="Event Categoy", on_delete=models.CASCADE)
-    staduim = models.ForeignKey(Stadium, verbose_name="Event Stadium", on_delete=models.CASCADE)
+    stadium = models.ForeignKey(Stadium, verbose_name="Event Stadium", on_delete=models.CASCADE)
     is_active = models.BooleanField(verbose_name="Is Active?", default=True)
     event_date_time = models.DateTimeField(auto_now=False, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
