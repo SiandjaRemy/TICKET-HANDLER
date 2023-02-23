@@ -10,4 +10,7 @@ class CodeForm(forms.ModelForm):
 class AddEventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ["title", "description", "event_image", "ticket_price", "available_tickets", "category", "stadium", "event_date_time"]
+        fields = ["title", "slug", "description", "event_image", "ticket_price", "available_tickets", "category", "stadium", "event_date_time"]
+        labels = {
+            "title": "Title",
+        }

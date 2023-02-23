@@ -30,7 +30,6 @@ urlpatterns = [
     #======================USER CODE URLS===========================
     path("dashboard", views.dashboard, name="dashboard"),
     path("add-event", views.add_event, name="add_event"),
-    path("event-form", views.event_form, name="event_form"),
 
 
     path("admin-index", views.admin_index, name="admin_index"),

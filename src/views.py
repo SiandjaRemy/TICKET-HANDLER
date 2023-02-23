@@ -373,18 +373,19 @@ def show(request):
     return render(request, "admin_page/show.html", context)
 
 def add_event(request):
-    return render(request, "admin_page/add_event.html")
-
-def event_form(request):
     if request.method == "POST":
         form = AddEventForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("add_event")
+            try:
+                form.save()
+                return redirect("dashboard")
+            except:
+                pass
     else:
         form = AddEventForm()
-    
-    return render(request, "admin_page/add_event.html",  {"form": form})
+    return render(request, "admin_page/add_event.html", {"form": form})
+
+
     
 
 #======================USER CODE VIEWS END===============================================

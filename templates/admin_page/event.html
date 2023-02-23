@@ -3,38 +3,37 @@
 
 {% block content %}
 
-<h1>Enter new event Details</h1>
-<form action="add-event" method="POST" enctype="multipart/form-data">  
+<h1>Add an event here</h1>
+<form action="event-form" method="POST" enctype="multipart/form-data">  
     {% csrf_token %}  
 <div class="container">  
 <br>  
-   
 <div class="form-group row">  
-<label class="col-sm-2 col-form-label">Event Title:</label>  
+<label class="col-sm-1 col-form-label"></label>  
+<div class="col-sm-4">  
+<h3>Enter new event Details</h3>  
+</div>  
+</div>    
+<div class="form-group row">  
+<label class="col-sm-2 col-form-label">Employee Title:</label>  
 <div class="col-sm-4">  
   {{ form.title }}  
 </div>  
 </div>  
 <div class="form-group row">  
-<label class="col-sm-2 col-form-label">Event Title Slug:</label>  
-<div class="col-sm-4">  
-  {{ form.slug }}  
-</div>  
-</div>  
-<div class="form-group row">  
-<label class="col-sm-2 col-form-label">Event Description:</label>  
+<label class="col-sm-2 col-form-label">Employee Description:</label>  
 <div class="col-sm-4">  
   {{ form.description }}  
 </div>  
 </div>  
 <div class="form-group row">  
-<label class="col-sm-2 col-form-label">Event Image:</label>  
+<label class="col-sm-2 col-form-label">Employee Image:</label>  
 <div class="col-sm-4">  
   {{ form.event_image }}  
 </div>  
 </div>
 <div class="form-group row">  
-<label class="col-sm-2 col-form-label">Ticket price:</label>  
+<label class="col-sm-2 col-form-label">Employee price:</label>  
 <div class="col-sm-4">  
   {{ form.ticket_price }}  
 </div>  
@@ -54,7 +53,7 @@
 <div class="form-group row">  
 <label class="col-sm-2 col-form-label">Stadium:</label>  
 <div class="col-sm-4">  
-  {{ form.stadium }}  
+  {{ form.staduim }}  
 </div>  
 </div>  
 <div class="form-group row">  
@@ -66,8 +65,7 @@
 <div class="form-group row">  
 <label class="col-sm-1 col-form-label"></label>  
 <div class="col-sm-4">  
-
-<input type="submit" value="Add Event">
+<button type="submit" class="btn btn-primary">Add Event</button>  
 </div>  
 </div>  
 </div>  
