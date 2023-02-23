@@ -374,7 +374,7 @@ def show(request):
 
 def add_event(request):
     if request.method == "POST":
-        form = AddEventForm(request.POST)
+        form = AddEventForm(request.POST, request.FILES)
         if form.is_valid():
             try:
                 form.save()
