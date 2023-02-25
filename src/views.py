@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 import decimal, random, string
 from django.contrib import messages
 from .models import Profile, Event, Category, Order, Guest, GuestOrder, QrInfo, Cart, Stadium
-from .forms import CodeForm, AddEventForm
+from .forms import CodeForm, AddEventForm, ProfileForm
 import datetime
 from django.utils import timezone
 
@@ -385,8 +386,32 @@ def add_event(request):
         form = AddEventForm()
     return render(request, "admin_page/add_event.html", {"form": form})
 
+def user_profiles(request):
+    profiles = Profile.objects.filter(profile_approuved=False)
+    return render(request, "admin_page/user_profiles.html", {"profiles":profiles})
+
+def get_user(request, profile_id):
+    profile = Profile.objects.get(id=profile_id)
+    return render(request, "admin_page/approuve_profile.html", {"profile":profile})
+
+def approuve_profile(request, profile_id):
+    profile = Profile.objects.get(id=profile_id)
+    if request.method == "POST":
+        form = ProfileForm(request.POST or None, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect("user_profiles")
+    else:
+        form = ProfileForm()
+    context = {
+        "profile":profile,
+        "form":form
+    }
+    return render(request, "admin_page/approuve_profile.html", context)
 
     
+
+
 
 #======================USER CODE VIEWS END===============================================
 

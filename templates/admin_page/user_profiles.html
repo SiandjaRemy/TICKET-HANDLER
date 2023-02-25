@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>List of unapprouved Profile</h1>
+
+<ul>
+    {% for profile in profiles %}
+    <li style="font-size: 30px;">
+        <a href="{% url 'approuve_profile' profile.id %}">{{ profile.user.username|title }}</a>
+    </li>
+    {% empty %}
+    <h3>No unapprouved profile</h3>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import QrInfo, Event
+from .models import QrInfo, Event, Profile
 
 
 class CodeForm(forms.ModelForm):
@@ -14,3 +14,8 @@ class AddEventForm(forms.ModelForm):
         labels = {
             "title": "Title",
         }
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = "__all__"
